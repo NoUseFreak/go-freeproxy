@@ -1,22 +1,24 @@
 FROM golang:alpine AS build
 
-WORKDIR /go/src/github.com/NoUseFreak/go-ddns/
+ARG project="go-freeproxy"
+
+WORKDIR /go/src/github.com/NoUseFreak/${project}/
 RUN apk add --no-cache dep git
 
-COPY ./Gopkg.* /go/src/github.com/NoUseFreak/go-ddns/
-COPY ./cmd /go/src/github.com/NoUseFreak/go-ddns/cmd
-COPY ./internal /go/src/github.com/NoUseFreak/go-ddns/internal
+COPY ./Gopkg.* /go/src/github.com/NoUseFreak/${project}/
+COPY ./cmd /go/src/github.com/NoUseFreak/${project}/cmd
+COPY ./internal /go/src/github.com/NoUseFreak/${project}/internal
 
-RUN cd /go/src/github.com/NoUseFreak/go-ddns/ \
+RUN cd /go/src/github.com/NoUseFreak/${project}/ \
     && dep ensure \
-    && CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o go-ddns ./cmd/go-ddns
+    && CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o ${project} ./cmd/${project}
 
 FROM alpine
+ARG project="go-freeproxy"
 
 RUN apk add --no-cache ca-certificates
 
 WORKDIR /root/
-COPY --from=build /go/src/github.com/NoUseFreak/go-ddns/go-ddns .
+COPY --from=build /go/src/github.com/NoUseFreak/${project}/${project} .
 
-ENTRYPOINT ["./go-ddns"]
-CMD [ "/config.yml" ]
+ENTRYPOINT ["./go-freeproxy"]

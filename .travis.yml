@@ -1,22 +1,19 @@
 sudo: required
 language: go
 go:
-  - master
-
+- master
 env:
-  - DEP_VERSION="0.5.1"
-
+- DEP_VERSION="0.5.1"
 before_install:
-  - curl -L -s https://github.com/golang/dep/releases/download/v${DEP_VERSION}/dep-linux-amd64 -o $GOPATH/bin/dep
-  - chmod +x $GOPATH/bin/dep
-
+- curl -L -s https://github.com/golang/dep/releases/download/v${DEP_VERSION}/dep-linux-amd64
+  -o $GOPATH/bin/dep
+- chmod +x $GOPATH/bin/dep
 install:
-  - dep ensure
-
+- dep ensure
 deploy:
   provider: releases
   api_key:
-    secure: inqsh3iJmZYppfuDJqW2JZVx1H25saeWv3FLcRFceisFXIICbtQctDfkYRGJAy1QyfkK8gzx9j8gkQ7q7CdM4nrc0LtGHvKpHnkcrBkh7WRjIUGFN/m5qiBlXDbZzY9GyEZWn1b36YEVD7f1zHuuCdG9AkcLR5ldW1ecJoo4PxS4qs7dI6nIgYchmdIUHfbfN01p1Qq7zaxYF5n668puCd0cEgVubHOC6Sm5Dbs3q1A6Z49N2qj+Br1MgQPkKbFGsp0t9PvrMwflAeIU4OfqzQM1yQTKOEMQg6AfHeOjCq+25ChUL//9lg7JCrWTYjy159Mzt2vExv7224XF94u7IJJfOUOYNfkRbh/nmwV4JEgQKVrV+O4sSpXSo7x6Pc9+XWQMDWpqJnwKq6Q6A27nwioxTLMVeo5CXoiHFX4cRNWjz5c37zhqmL3iDrlBQXd/k0ZG+dcCbB/7chMCDjFzxFaxKVYlRIibC41ir7x6tXCFLaNqxu1O78j4LOOD/62en+c45epndA9C+n7FZ0050+tlW9TTpqQBqRZRj19CYAHp2ApwdM7BDauaDWa3EsBkAuMMP/kZnREfz3/Qy9WhOkgkX5doWAJ/cVJo6pZNGniOXTFvzuuhO7hbI7Nz6zuNW11KDmpt1cUh71nTI1HSq8wNeAqfvHHjj5hAOS69YwA=
+    secure: sXUtgHHTYClgpLk4Oiy/kQH9RRbtnyV0sxXOU1nsNgKm+gYkytLDnVQ24o5tch19EfdMjh8oU14grplCRMgxacTNGmjBaUFVvWW7z0PH973UIxp2A0V9FPoslDklYdcY4x26n1RA2gN8NM6pKSmkrDzTogIMZuu8ttN0vVir28RmBC5TrVHZopRW8aiUJhm8dLpEUyaV/Et5czb793xLzcgbIgdiunyRdxUzzehza0S7ivhiK6YR7LF5rulR52qnKBamrU1dTkO7ZjfvZz/alIULzgRh0YANGhLwqPoxQ+99VWqS+wP5L7DYVsJRmfY36Svjv39pEfz77/09ZTtHmgFkllWWMCbMvCF1WsvF5bIZoEZCLP5C0Zji/Uiq84gV+kEMxOwuFN2yXx77irJxJgensxox9GWH+5j2tHwitFNy5793Z0FmYd/V+BIvX+prcFPMGCDe/jCsG01xQqPhxPVWjKhNynuNu1E61iknjCsJb/Zg30Yd+kj1Hy53+zHfGCdjtltmIq0lCHFggPKB4nFOBBNXmaSecwj5Gnl6HXZAUcpyu7xuaZCF3kM71iB1OswNRT04Xfr7AV50dUm/X8hqKa9C0dhrWP8pStYppVGrdLoxpxFkbUVCTbF+BkvNw9z2NkEKrnER08pUjOmflVHoZRDp8P+H1VK3YR6G2j8=
   file_glob: true
   file: build/archive/*
   skip_cleanup: true
